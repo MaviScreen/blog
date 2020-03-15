@@ -1,0 +1,83 @@
+doctype html
+html(lang='tr')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    base(href=`${site_settings.link}/`)
+    title #{title ? title + ' - ' + site_settings.name : site_settings.name + ' - ' + site_settings.title}
+    // style start
+    link(rel='stylesheet', href='/css/reset.css')
+    link(rel='stylesheet', href='/css/FontAwesome/all.css')
+    link(rel='stylesheet', href='/css/main.css')
+    // style finish
+  body#top
+    // header start
+    header
+      // #header-top start
+      #header-top
+        .container
+          a(href='/')
+            img(src=site_settings.logo, alt=site_settings.title)
+          h3= site_settings.title
+          h4= site_settings.motto
+          ul#social
+            each social in site_settings.socialLinks
+              li
+                a(href=social.link)
+                  i(class=social.icon)
+      // #header-top finish
+      // #header-under start
+      #header-under
+        .container
+          // #logo start
+          #logo
+            a(href='/')= site_settings.name
+          // #logo finish
+          // nav start
+          nav
+            ul
+              li
+                a(href='/') anasayfa
+              li
+                a(href='/hakkimda') hakkımda
+              li
+                a(href='/calismalarim') Çalışmalarım
+              li
+                a(href='/iletisim') iletişim
+              li#search-btn
+                form(action='/ara')
+                  input(type='text', name='s', id='', placeholder='blogumda ara...', autocomplete='off')
+                i.fas.fa-search
+          // nav finish
+          // #header-under finish
+          // header finish
+
+    block contents
+
+    a(id='top', class='top-btn', href='#')
+      i.fas.fa-arrow-up
+
+    // footer start
+    footer
+      // #footer-top start
+      #footer-top
+        .container
+          .inner
+            h3 Ne, Nedir?
+            p= site_settings.footerText
+          .inner
+            p
+              | Node.JS - Mongodb
+              i.fas.fa-heart
+            a(href='') Site Haritası
+            a(href='') Humans.txt
+      // #footer-top finish
+      // #footer-under start
+      #footer-under
+        .container
+          | © 2020 Tüm hakları saklıdır.
+      // #footer-under finish
+      // footer finish
+      // javascript start
+      script(src='/js/main.js', defer='')
+      // javascript finish

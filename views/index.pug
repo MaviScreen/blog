@@ -1,0 +1,47 @@
+extends layout
+
+block contents
+  #contents
+    .container
+      if posts
+        each post in posts
+          .content
+            a(href=post.slug)
+              img(src=post.thumbnail, alt=post.title)
+            .content-container
+              h2
+                a(href=post.slug)= post.title 
+              .post-meta-container
+                a(href='/yazar/' + post.author[0].slug)
+                  img(src=post.author[0].avatar, alt='')
+                .post-meta
+                  a.name(href='/yazar/' + post.author[0].slug)= post.author[0].name + ' ' + post.author[0].surname
+                  a.category(href='/kategori/' + post.category[0].slug)
+                    i.fas.fa-align-left
+                    span= post.category[0].title
+                  time= moment(post.created).format('DD.MM.YYYY, HH:mm')
+              p= post.content.replace(/<[^>]*>?/gm, '').substr(0, Math.floor(Math.random() * 100 ) + 300) + ' ...'
+              .content-readmore
+                a.read-more(href=post.slug)
+                  | Okumaya devam et
+                  i.fas.fa-arrow-right
+                ul.share
+                  li
+                    a(href=`https://www.facebook.com/sharer/sharer.php?u=${site_settings.link}/${post.slug}`, target='_blank')
+                      i.fab.fa-facebook-square
+                  li
+                    a(href=`https://twitter.com/share?url=${site_settings.link}/${post.slug}`, target='_blank')
+                      i.fab.fa-twitter
+                  li
+                    a(href=`https://web.whatsapp.com/send?text=${site_settings.link}/${post.slug}`, target='_blank')
+                      i.fab.fa-whatsapp
+                  li
+                    a(href=`https://t.me/share/url?url=${site_settings.link}/${post.slug}`, target='_blank')
+                      i.fab.fa-telegram
+                .comment
+                  a(href='')
+                    i.far.fa-comment-alt
+                    span= post.comments ? post.comments.length : '0'
+      else
+        h1
+          | Buralar önceden hep tarlaydı :)

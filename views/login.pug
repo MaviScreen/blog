@@ -1,0 +1,16 @@
+extends layout
+
+block contents
+  // #login start
+  #login
+    .container
+      form(action='', method='POST')
+        .form-group
+          input(type='text', name='mail', placeholder='E-posta', id='')
+        .form-group
+          input(type='password', name='password', placeholder='Şifre', id='')
+        .form-group
+          p.error-message= error_message
+        .form-group
+          input(type='submit', value='Giriş Yap')
+  // #login finish

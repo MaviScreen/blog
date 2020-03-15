@@ -1,0 +1,121 @@
+extends layout
+
+block contents
+  .single-content
+    .content-container
+      ul#breadcrumb
+        li
+          a(href='/') Anasayfa
+        li
+          a(href='/kategori/' + post.category[0].slug)= post.category[0].title
+        li= post.title
+      h1.content-title= post.title
+      .post-meta-container
+        a(href='/yazar/' + post.author[0].slug)
+          img(src=post.author[0].avatar, alt=post.author[0].name + ' ' + post.author[0].surname)
+        .post-meta
+          a.name(href='/yazar/' + post.author[0].slug)= post.author[0].name + ' ' + post.author[0].surname
+          a.category(href=href='/kategori/' + post.category[0].slug)
+            i.fas.fa-align-left
+            span= post.category[0].title
+          time= moment(post.created).format('DD.MM.YYYY, H:mm')
+    .container
+      img.single-content-img(src=post.thumbnail, alt=post.title)
+    .content-container!= post.content
+    .container
+      ul#tags
+        each tag in post.keywords
+          li
+            a(href='/etiket/' + tag)= tag
+      .content-share
+        span paylaş
+        .seperator
+        ul
+          li
+            a(href=`https://www.facebook.com/sharer/sharer.php?u=${site_settings.link}/${post.slug}`, class="facebook", target='_blank')
+              i.fab.fa-facebook-square
+          li
+            a(href=`https://twitter.com/share?url=${site_settings.link}/${post.slug}`, class="twitter", target='_blank')
+              i.fab.fa-twitter
+          li
+            a(href=`https://web.whatsapp.com/send?text=${site_settings.link}/${post.slug}`, class="whatsapp", target='_blank')
+              i.fab.fa-whatsapp
+          li
+            a(href=`https://t.me/share/url?url=${site_settings.link}/${post.slug}`, class="telegram", target='_blank')
+              i.fab.fa-telegram
+    .content-container
+      .content-author
+        a(href='/yazar/' + post.author[0].slug) 
+          img.author-img(src=post.author[0].avatar, alt=post.author[0].name + ' ' + post.author[0].surname)
+        .inner
+          h2.author-name
+            a(href='/yazar/' + post.author[0].slug)= post.author[0].name + ' ' + post.author[0].surname
+          p.author-desc= post.author[0].description
+
+      #new-comment
+        h5 Bir Cevap Yazın
+        p En kısa süre içinde cevaplayacağımından emin olabilirsin
+        form(action='')
+          img(src='images/none.png', alt='')
+          textarea(name='comment', placeholder='Buraya güzel yorumlarını bekliyorum :)', required='')
+          input(type='text', name='name', placeholder='isim*', required='')
+          input(type='text', name='email', placeholder='e-posta*', required='')
+          input(type='submit', value='Yorum yap')
+
+      #comments
+        if post.comments
+          each comment in post.comments
+            .comment
+              img.comment-img(src='images/none.png')
+              .comment-inner
+                span
+                  strong= comment.name
+                  |  dedi ki:
+                  time= moment(comment.created).format('DD.MM.YYYY, H:m')
+                p= comment.comment
+                a(href='#new-comment')
+                  i.fas.fa-reply
+                  | Cevap ver
+
+    if randomPosts.length > 0
+      .container.featured-content
+        h4.content-title Bu yazılarım da ilgini çekebilir
+        #contents
+          each randomPost in randomPosts
+            .content
+              a(href=randomPost.slug)
+                img(src=randomPost.thumbnail, alt=randomPost.title)
+              .content-container
+                h2
+                  a(href=randomPost.slug)= randomPost.title 
+                .post-meta-container
+                  a(href='/yazar/' + randomPost.author[0].slug)
+                    img(src=randomPost.author[0].avatar, alt='')
+                  .post-meta
+                    a.name(href='/yazar/' + randomPost.author[0].slug)= randomPost.author[0].name + ' ' + randomPost.author[0].surname
+                    a.category(href='/kategori/' + randomPost.category[0].slug)
+                      i.fas.fa-align-left
+                      span= randomPost.category[0].title
+                    time= moment(randomPost.created).format('DD.MM.YYYY, HH:mm')
+                p= randomPost.content.replace(/<[^>]*>?/gm, '').substr(0, Math.floor(Math.random() * 100 ) + 300) + ' ...'
+                .content-readmore
+                  a.read-more(href=randomPost.slug)
+                    | Okumaya devam et
+                    i.fas.fa-arrow-right
+                  ul.share
+                    li
+                      a(href=`https://www.facebook.com/sharer/sharer.php?u=${site_settings.link}/${randomPost.slug}`, target='_blank')
+                        i.fab.fa-facebook-square
+                    li
+                      a(href=`https://twitter.com/share?url=${site_settings.link}/${randomPost.slug}`, target='_blank')
+                        i.fab.fa-twitter
+                    li
+                      a(href=`https://web.whatsapp.com/send?text=${site_settings.link}/${randomPost.slug}`, target='_blank')
+                        i.fab.fa-whatsapp
+                    li
+                      a(href=`https://t.me/share/url?url=${site_settings.link}/${randomPost.slug}`, target='_blank')
+                        i.fab.fa-telegram
+                  .comment
+                    a(href='')
+                      i.far.fa-comment-alt
+                      span= randomPost.comments ? randomPost.comments.length : '0'
