@@ -1,7 +1,6 @@
 'use strict';
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, model } = require('mongoose');
 
 let settingsSchema = new Schema({
   title: { type: String },
@@ -20,6 +19,6 @@ let settingsSchema = new Schema({
   postPostLimit: { type: Number, default: 2 }
 });
 
-let settings = mongoose.model('Settings', settingsSchema, 'settings');
+let settings = model('Settings', settingsSchema, 'settings');
 
 module.exports = settings;

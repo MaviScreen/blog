@@ -1,14 +1,13 @@
 'use strict';
 
-const mongoose = require('mongoose');
-const Scheme = mongoose.Schema;
+const { Schema, model } = require('mongoose');
 
-let categoryScheme = new Scheme({
+let categoryScheme = new Schema({
   title: { type: String },
   slug: { type: String },
   desc: { type: String }
 });
 
-let category = mongoose.model('Category', categoryScheme, 'categories');
+let category = model('Category', categoryScheme, 'categories');
 
 module.exports = category;

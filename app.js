@@ -1,6 +1,8 @@
 'use strict';
 
 const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -8,10 +10,10 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const session = require('express-session');
 
-// models
+// Blog settings model
 const settings = require('./models/Settings');
 
-// mongodb bağlantısı
+// MongoDB connection
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect(process.env.MONGO_QUERY, err => {
@@ -22,17 +24,19 @@ mongoose.connect(process.env.MONGO_QUERY, err => {
 const app = express();
 app.locals.moment = require('moment');
 
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// site settings
+// Blog settings
 app.use((req, res, next) => {
   settings
     .find({ isActive: true }, (err, response) => {
@@ -47,7 +51,7 @@ app.use((req, res, next) => {
     .sort({ created: -1 });
 });
 
-// sessions
+// Sessions
 app.use(
   session({
     secret: 'b21d5a7970915d15ad054a14c182cd05',
@@ -56,10 +60,10 @@ app.use(
   })
 );
 
-app.use('/ajax', require('./routes/ajax')); // hazirlancak
-app.use('/ara', require('./routes/search')); // hazirlancak
-app.use('/yazar', require('./routes/author')); // hazirlancak
-app.use('/etiket', require('./routes/tags')); // hazirlancak
+app.use('/ajax', require('./routes/ajax')); // Work in progress
+app.use('/ara', require('./routes/search')); // Work in progress
+app.use('/yazar', require('./routes/author')); // Work in progress
+app.use('/etiket', require('./routes/tags')); // Work in progress
 app.use('/kategori', require('./routes/category'));
 app.use('/giris', require('./routes/login'));
 app.use('/cikis', require('./routes/logout'));
