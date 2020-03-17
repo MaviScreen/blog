@@ -1,6 +1,6 @@
 {
   "name": "blog",
-  "version": "0.0.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "nodemon ./bin/www ",
@@ -20,5 +20,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
+  },
+  "homepage": "https://github.com/nazifcand/blog",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nazifcand/blog.git",
+    "bugs": {
+      "url": "https://github.com/nazifcand/blog/issues"
+    }
   }
 }

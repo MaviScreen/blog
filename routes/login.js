@@ -1,5 +1,6 @@
-const express = require('express');
-const router = express.Router();
+'use strict';
+
+const router = require('express').Router();
 const user = require('../models/Users');
 
 router.get('/', (req, res, next) => {

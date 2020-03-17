@@ -1,5 +1,7 @@
+'use strict';
+
 module.exports = text => {
-  var trMap = {
+  const trMap = {
     çÇ: 'c',
     ğĞ: 'g',
     şŞ: 's',
@@ -7,7 +9,7 @@ module.exports = text => {
     ıİ: 'i',
     öÖ: 'o'
   };
-  for (var key in trMap) {
+  for (let key in trMap) {
     text = text.replace(new RegExp('[' + key + ']', 'g'), trMap[key]);
   }
   return text
