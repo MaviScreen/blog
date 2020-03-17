@@ -1,7 +1,6 @@
 'use strict';
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, model } = require('mongoose');
 
 let userScheme = new Schema({
   username: { type: String, required: true },
@@ -15,6 +14,6 @@ let userScheme = new Schema({
   description: { type: String, default: 'yazar hakkında bilgi bulunmuyor...' }
 });
 
-let user = mongoose.model('User', userScheme, 'users');
+let user = model('User', userScheme, 'users');
 
 module.exports = user;
