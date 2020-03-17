@@ -2,12 +2,12 @@
 
 const { Schema, model } = require('mongoose');
 
-let categoryScheme = new Schema({
+let categorySchema = new Schema({
   title: { type: String },
   slug: { type: String },
   desc: { type: String }
 });
 
-let category = model('Category', categoryScheme, 'categories');
+let category = model('Category', categorySchema, 'categories');
 
 module.exports = category;

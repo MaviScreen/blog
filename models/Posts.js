@@ -2,7 +2,7 @@
 
 const { Schema, Types, model } = require('mongoose');
 
-let postScheme = new Schema({
+let postSchema = new Schema({
   author: { type: Types.ObjectId, required: true },
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now },
@@ -18,6 +18,6 @@ let postScheme = new Schema({
   views: { type: Number, default: 0 }
 });
 
-let post = model('Posts', postScheme, 'posts');
+let post = model('Posts', postSchema, 'posts');
 
 module.exports = post;
